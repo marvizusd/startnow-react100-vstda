@@ -4,48 +4,48 @@ import ReactDOM from 'react-dom';
 class LeftPanel extends Component {
   constructor(props){
     super(props)
-    this.state={
-      Description:'',
-      Priority:'',
+    this.state = {
+      description:'',
+      priority:'',
     }
 
     this.handleFirstInput = this.handleFirstInput.bind(this);
     this.handlePriority = this.handlePriority.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
+  
   handleSubmit(event){
     event.preventDefault();
     this.props.addItems(this.state);
-    this.setState({Description:'',Priority:''});
+    this.setState({ description: '', priority: '' });
   }
 
   handleFirstInput(event){
-    this.setState({Description:event.target.value});
+    this.setState({ description: event.target.value });
   }
 
   handlePriority(event){
-    this.setState({Priority:event.target.value});
+    this.setState({ priority: event.target.value });
   }
 
-
-
-
     render(){
-      
         return(
-
-        <div className='col col-md-4'>  
+          <div className='col col-md-4'>  
             <div className='panel panel-default'>
               <div className='panel-heading'>Add New ToDo</div>
               <div className='panel-body'>
               <form>
                 <div className="form-group">
                   <label className=''>I want to..</label>
-                  <textarea onChange={this.handleFirstInput} value={this.state.Description} className="create-todo-text form-control" rows="3"></textarea>
+                  <textarea
+                    onChange={this.handleFirstInput}
+                    value={this.state.description}
+                    className="create-todo-text form-control"
+                    rows="3">
+                  </textarea>
                   <br/>
                   <label className=''>How much of a priority is this?</label>
-                  <select name="in-op" required="" value={this.state.Priority} onChange={this.handlePriority} className="form-control">
+                  <select name="in-op" required="" value={this.state.priority} onChange={this.handlePriority} className="form-control">
                     <option hidden value='' >Select a Priority</option>
                     <option value='1'>High</option>
                     <option value='2'>Normal</option>

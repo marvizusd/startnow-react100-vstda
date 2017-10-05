@@ -5,42 +5,47 @@ import RightPanel from './components/RightPanel';
 
 var counter = 0;
 
-
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      TodoList:[]
+      todoList:[]
     }
-    this.addItems=this.addItems.bind(this);
+    this.addItems = this.addItems.bind(this);
+    this.updateItems = this.updateItems.bind(this);    
   }
 
-  addItems(LeftPanel){
-    let todoListCopy = [...this.state.TodoList]
+  addItems(item){
+    let todoListCopy = [...this.state.todoList]
+    
     todoListCopy.push({
-      desc:LeftPanel.Description,
-      prior:LeftPanel.Priority,
-      id:counter++
+      description: item.description,
+      priority: item.priority,
+      id: counter++
     });
-    this.setState({TodoList:todoListCopy});
+
+    this.setState({
+      todoList: todoListCopy
+    });
   }
 
-  TodoList(){
-    var list = this.state.TodoList;
-    var listItem = list.map((item) => 
-    <a id={item.id} value={item.prior} className="list-group-item list-group-item-warning">
-      <label>
-      <strong className='list-group-item-text'>{item.desc}</strong>
-      </label>
-      <span role='button' onClick='' className='glyphicon glyphicon-trash danger pull-right delete-todo' style={{color: "DarkRed"}}></span>
-      <span role='button' onClick='' className='glyphicon glyphicon-edit pull-right edit-todo' style={{color: "DarkCyan",margin:'0px 15px'}}></span>                      
-    </a>
-  
-  )
-};
-  
-  render() {
 
+  updateItems(updateTodo){
+    const todoListCopy = [...this.state.todoList]
+
+    for(let i = 0; i<todoListCopy.length; i++){
+      if(updateTodo.id === todoListCopy[i].id ){
+        todoListCopy[i].description = updateTodo.description;
+        todoListCopy[i].priority = updateTodo.priority
+      }
+    }
+
+    this.setState({
+      todoList: todoListCopy
+    });
+  }
+
+  render() {
     return (
       <div className='container'>
         <div className='page-header'>
@@ -49,14 +54,12 @@ class App extends Component {
         </div>
 
         <div className='row'>
-          <LeftPanel addItems={this.addItems}/>
-
-          <RightPanel TodoList={this.state.TodoList}/>
-
+          <LeftPanel addItems={this.addItems} />
+          <RightPanel todoList={this.state.todoList}
+                      updateItems={this.updateItems}
+          />
         </div>        
-
       </div>
-
     );
   }
 }
