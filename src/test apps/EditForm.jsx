@@ -7,6 +7,7 @@ class EditForm extends Component {
       description: this.props.todoItem.description,
       priority: this.props.todoItem.priority,
       id:this.props.todoItem.id,
+      edit:false,
       date: ''
     }
 
